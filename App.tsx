@@ -3,7 +3,7 @@ import {SafeAreaView, useColorScheme} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {config, GluestackUIProvider} from '@gluestack-ui/themed';
-import {Register, Login} from './pages/';
+import {Register, Login, SplashScreen} from './screens';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {appColors} from './constants/colorsContants';
@@ -23,8 +23,8 @@ function App(): JSX.Element {
         <SafeAreaView style={backgroundStyle}>
           <Stack.Navigator>
             <Stack.Screen
-              name="Register"
-              component={Register}
+              name="Splash"
+              component={SplashScreen}
               options={{
                 headerShown: false,
               }}
@@ -32,6 +32,13 @@ function App(): JSX.Element {
             <Stack.Screen
               name="Login"
               component={Login}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Register"
+              component={Register}
               options={{
                 headerShown: false,
               }}
