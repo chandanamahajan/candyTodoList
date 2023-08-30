@@ -9,10 +9,9 @@ import {
   VStack,
   Button,
   FormControl,
-  FormControlHelper,
-  FormControlHelperText,
   FormControlLabel,
   FormControlLabelText,
+  HStack,
 } from '@gluestack-ui/themed';
 import {appColors} from '../../constants/colorsContants';
 import {useForm} from 'react-hook-form';
@@ -20,12 +19,11 @@ import InputBox from '../../components/inputBox';
 
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-const RegisterInputs = ({navigation}: any) => {
+const LoginInputs = ({navigation}: any) => {
   const {
     control,
     handleSubmit,
     formState: {errors},
-    watch,
     reset,
   } = useForm({
     defaultValues: {
@@ -39,8 +37,6 @@ const RegisterInputs = ({navigation}: any) => {
     console.log({data});
     reset();
   };
-
-  const pwd = watch('password');
 
   return (
     <Center>
@@ -73,6 +69,7 @@ const RegisterInputs = ({navigation}: any) => {
                     message: 'Email is invalid',
                   },
                 }}
+                label="Email"
               />
             </FormControl>
             <FormControl
@@ -81,11 +78,24 @@ const RegisterInputs = ({navigation}: any) => {
               isInvalid={errors.password ? true : false}
               isReadOnly={false}
               isRequired={true}>
-              <FormControlLabel mb="$3">
-                <FormControlLabelText style={styles.label} lineHeight="$xs">
-                  Password
-                </FormControlLabelText>
-              </FormControlLabel>
+              <HStack justifyContent="space-between" alignItems="center">
+                <FormControlLabel mb="$3">
+                  <FormControlLabelText style={styles.label} lineHeight="$xs">
+                    Password
+                  </FormControlLabelText>
+                </FormControlLabel>
+
+                <Text
+                  mb="$3"
+                  sx={{
+                    textDecorationLine: 'underline',
+                    opacity: 0.5,
+                  }}
+                  style={styles.label}
+                  lineHeight="$xs">
+                  Forgot?
+                </Text>
+              </HStack>
               <InputBox
                 name="password"
                 control={control}
@@ -95,38 +105,6 @@ const RegisterInputs = ({navigation}: any) => {
                     value: 8,
                     message: 'Password should be atleast 8 characters long',
                   },
-                }}
-              />
-              <FormControlHelper>
-                <FormControlHelperText
-                  sx={{
-                    fontFamily: 'Avenir',
-                    fontSize: 12,
-                    fontWeight: '400',
-                  }}>
-                  Must be atleast 8 characters.
-                </FormControlHelperText>
-              </FormControlHelper>
-            </FormControl>
-
-            <FormControl
-              size="md"
-              isDisabled={false}
-              isInvalid={errors.confirmPassword ? true : false}
-              isReadOnly={false}
-              isRequired={true}>
-              <FormControlLabel mb="$3">
-                <FormControlLabelText style={styles.label} lineHeight="$xs">
-                  Confirm Password
-                </FormControlLabelText>
-              </FormControlLabel>
-              <InputBox
-                name="confirmPassword"
-                control={control}
-                rules={{
-                  required: 'Password confirmation is required',
-                  validate: (value: any) =>
-                    value === pwd || 'Passwords do not match',
                 }}
               />
             </FormControl>
@@ -144,32 +122,12 @@ const RegisterInputs = ({navigation}: any) => {
                   color: Colors.white,
                   fontWeight: '$extrabold',
                 }}>
-                Register
+                Login
               </Text>
             </TouchableOpacity>
           </VStack>
         </FormControl>
 
-        <Box justifyContent="center" alignItems="center" marginTop={'$1'}>
-          <Box width="$48">
-            <Text
-              style={styles.footerText}
-              sx={{
-                fontWeight: '$normal',
-              }}>
-              By registering, you automatically accept the{' '}
-              <Text
-                style={styles.footerText}
-                sx={{
-                  fontWeight: '$medium',
-                  textDecorationLine: 'underline',
-                }}>
-                Terms & Policies
-              </Text>{' '}
-              of candy app.
-            </Text>
-          </Box>
-        </Box>
         <Box
           flexDirection="row"
           alignItems="center"
@@ -178,7 +136,7 @@ const RegisterInputs = ({navigation}: any) => {
           <Button
             p="$0"
             size="sm"
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => navigation.navigate('Register')}
             variant="link">
             <Text
               textAlign="center"
@@ -190,7 +148,7 @@ const RegisterInputs = ({navigation}: any) => {
                 textDecorationLine: 'underline',
                 fontWeight: '$extrabold',
               }}>
-              Have account? Log In
+              New User? Register Here
             </Text>
           </Button>
         </Box>
@@ -209,6 +167,7 @@ const styles = StyleSheet.create({
     letterSpacing: 4,
     textTransform: 'uppercase',
   },
+
   label: {
     color: appColors.primary,
     fontFamily: 'Avenir',
@@ -233,4 +192,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterInputs;
+export default LoginInputs;

@@ -8,7 +8,6 @@ import {splashImg} from '../../constants/imageContants';
 
 function SplashScreen({navigation}: any): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
-  console.log({splashImg});
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : appColors.primaryBg,
